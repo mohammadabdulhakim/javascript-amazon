@@ -1,13 +1,3 @@
-const products = [
-    {
-        img: "images/products/athletic-cotton-socks-6-pairs.jpg",
-        name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-        ratingCount: 87,
-        ratingPercent: 4.5,
-        priceInCent: 290,
-    }
-]
-
 const productsGrid = document.querySelector(".products-grid")
 
 let productsGridInnerHTML = "";
@@ -16,7 +6,7 @@ products.forEach((product)=>{
     <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src=${product.img}>
+              src=${product.image}>
           </div>
 
           <div class="product-name limit-text-to-2-lines">
@@ -25,14 +15,14 @@ products.forEach((product)=>{
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.ratingPercent * 10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
-              ${product.ratingCount}
+              ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${(product.priceInCent / 100).toFixed(2)}
+            $${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
