@@ -1,4 +1,4 @@
-import {cart} from "/data/cart.js";
+import {cart, addToCart} from "/data/cart.js";
 import {products} from "/data/products.js"
 
 const productsGrid = document.querySelector(".products-grid")
@@ -63,21 +63,7 @@ productsGrid.innerHTML = productsGridInnerHTML
 
 document.querySelectorAll(".add-to-cart-button").forEach((button)=>{
   button.addEventListener("click",(e)=>{
-    const productId = e.target.dataset.id;
-
-    const quantity = +document.querySelector(`.product-id-${productId}`).value
-
-    const item = cart.find( item => item.productId === productId )
-
-    if(item){
-      item.quantity += quantity
-    }else{
-      cart.push({
-        productId,
-        quantity,
-      })
-    }
-    
+    addToCart(e)
     updateCartQuantity()
   })
 })
