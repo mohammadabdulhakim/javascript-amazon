@@ -1,4 +1,4 @@
-export const cart = [];
+export const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 export function addToCart(event){
     const productId = event.target.dataset.id;
@@ -15,4 +15,6 @@ export function addToCart(event){
           quantity,
         })
       }
+
+      localStorage.setItem("cart", JSON.stringify(cart))
   }
