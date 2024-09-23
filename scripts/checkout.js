@@ -1,4 +1,5 @@
 import { cart } from "../data/cart.js";
+import { currencyFormat } from "./utils.js";
 import {products} from "/data/products.js"
 
 updateCheckoutQuantity()
@@ -35,7 +36,7 @@ cart.forEach(item=>{
                   ${oneProduct.name}
                 </div>
                 <div class="product-price">
-                  $${(oneProduct.priceCents / 100).toFixed(2)}
+                  $${currencyFormat(oneProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                   <span>
