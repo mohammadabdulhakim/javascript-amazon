@@ -42,15 +42,21 @@ function previewCartItems(){
                   <div class="product-price">
                     $${currencyFormat(oneProduct.priceCents)}
                   </div>
-                  <div class="product-quantity">
+                  <div class="product-quantity product-quantity-${oneProduct.id}">
                     <span>
-                      Quantity: <span class="quantity-label">${
+                      Quantity: <span class="quantity-label quantity-label-${oneProduct.id}">${
                         item.quantity
                       }</span>
                     </span>
-                    <span class="update-quantity-link link-primary">
+                    <span class="update-quantity-link link-primary" data-item-id=${oneProduct.id}>
                       Update
                     </span>
+                    <div class="input-quantity-container">
+                      <input min="1" value=${item.quantity} class="update-input update-input-${oneProduct.id}" type="number" />
+                      <div class="link-primary save-quantity" data-item-id=${oneProduct.id}>
+                        Save
+                      </div>
+                    </div>
                     <span class="delete-quantity-link link-primary" data-id=${oneProduct.id}>
                       Delete
                     </span>
@@ -126,4 +132,37 @@ function prepareDeleteButtons(){
       itemToRemove.remove();
     })
   })
+}
+
+document.querySelectorAll(".update-quantity-link").forEach(btn=>{
+  btn.addEventListener("click", e =>{
+    document.querySelector(".product-quantity-"+ btn.dataset.itemId).classList.add("is-updating-quantity")
+  })
+})
+
+document.querySelectorAll(".link-primary.save-quantity").forEach(btn=>{
+  btn.addEventListener("click", e =>{
+    handleSaveNewQuantity(btn.dataset.itemId)
+  })
+})
+document.addEventListener("keyup",(e)=>{
+  if(e.key === "Enter" && e.target.classList[0] === "update-input"){
+    const productId = e.target.classList[1].slice(13)
+    handleSaveNewQuantity(productId)
+  }
+})
+
+function handleSaveNewQuantity(productId){
+  document.querySelector(`.product-quantity-${productId}`).classList.remove("is-updating-quantity")
+    const newQuantity = document.querySelector(`.update-input-${productId}`).value
+
+    if(newQuantity < 1) return;
+    const updatedCart = cart.map(item=>{
+      if(item.productId === productId) item.quantity = +newQuantity;
+      return item;
+    })
+
+    document.querySelector(`.quantity-label-${productId}`).innerHTML = newQuantity;
+    updateCart(updatedCart)
+    updateCheckoutQuantity()
 }

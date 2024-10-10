@@ -119,6 +119,7 @@
   margin-left: 3px;
 }
 
+
 @media (max-width: 1000px) {
   .delivery-options {
     /* grid-column: 1 means this element will be placed
@@ -208,4 +209,26 @@
 
   margin-top: 11px;
   margin-bottom: 15px;
+}
+
+.update-input{
+  width:33px;
+  outline:none;
+}
+
+.product-quantity.is-updating-quantity .input-quantity-container,
+.save-quantity, 
+.update-input
+{
+  display: inline-block;
+}
+.product-quantity .input-quantity-container
+{
+  display: none;
+}
+
+.product-quantity.is-updating-quantity .quantity-label,
+.product-quantity.is-updating-quantity .update-quantity-link
+{
+  display: none;
 }
