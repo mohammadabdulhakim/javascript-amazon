@@ -13,6 +13,7 @@ export function addToCart(event){
         cart.push({
           productId,
           quantity,
+          deliveryDate: 5,
         })
       }
 

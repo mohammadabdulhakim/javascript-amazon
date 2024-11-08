@@ -2,6 +2,8 @@ import { cart, updateCart } from "../data/cart.js";
 import { currencyFormat } from "./utils.js";
 import { products } from "/data/products.js";
 
+import dayjs from "https://unpkg.com/dayjs@1.11.13/esm/index.js";
+
 
 function updateCheckoutQuantity() {
   const checkoutHeaderLink = document.querySelector(
@@ -20,6 +22,8 @@ function updateCheckoutQuantity() {
       : "No items";
 }
 
+const nextNDays = (n) => dayjs().add(n,"days").format("dddd, MMMM | D-MM");
+
 function previewCartItems(){
   const orderSummary = document.querySelector(".checkout-grid .order-summary");
   let orderSummaryInnerHTML = "";
@@ -27,8 +31,8 @@ function previewCartItems(){
     const oneProduct = products.find((product) => product.id === item.productId);
     orderSummaryInnerHTML += `
     <div class="cart-item-container cart-product-id-${oneProduct.id}">
-              <div class="delivery-date">
-                Delivery date: Tuesday, June 21
+              <div class="delivery-date delivery-date-${oneProduct.id}">
+                Delivery date: 
               </div>
   
               <div class="cart-item-details-grid">
@@ -68,12 +72,15 @@ function previewCartItems(){
                     Choose a delivery option:
                   </div>
                   <div class="delivery-option">
-                    <input type="radio" checked
+                    <input type="radio" 
                       class="delivery-option-input"
-                      name="delivery-option-${oneProduct.id}">
+                      name="delivery-option-${oneProduct.id}"
+                      id="delivery-option-${oneProduct.id}"
+                      value="9"
+                      >
                     <div>
                       <div class="delivery-option-date">
-                        Tuesday, June 21
+                        ${nextNDays(9)}
                       </div>
                       <div class="delivery-option-price">
                         FREE Shipping
@@ -83,10 +90,13 @@ function previewCartItems(){
                   <div class="delivery-option">
                     <input type="radio"
                       class="delivery-option-input"
-                      name="delivery-option-${oneProduct.id}">
+                      name="delivery-option-${oneProduct.id}"
+                      id="delivery-option-${oneProduct.id}"
+                      value="5"
+                      >
                     <div>
                       <div class="delivery-option-date">
-                        Wednesday, June 15
+                        ${nextNDays(5)}
                       </div>
                       <div class="delivery-option-price">
                         $4.99 - Shipping
@@ -96,10 +106,13 @@ function previewCartItems(){
                   <div class="delivery-option">
                     <input type="radio"
                       class="delivery-option-input"
-                      name="delivery-option-${oneProduct.id}">
+                      name="delivery-option-${oneProduct.id}"
+                      id="delivery-option-${oneProduct.id}"
+                      value="1"
+                      >
                     <div>
                       <div class="delivery-option-date">
-                        Monday, June 13
+                        ${nextNDays(1)}
                       </div>
                       <div class="delivery-option-price">
                         $9.99 - Shipping
@@ -166,3 +179,29 @@ function handleSaveNewQuantity(productId){
     updateCart(updatedCart)
     updateCheckoutQuantity()
 }
+
+function changeDeliveryDate(){
+  const z = (id,value) =>{
+    document.querySelector(`.delivery-date-${id}`).innerText = "Delivery Date: " + nextNDays(value);
+  }
+  cart.map((product)=>{
+    const productRadioInputs = document.querySelectorAll(`#delivery-option-${product.productId}`)
+    z(product.productId,product.deliveryDate)
+    
+    productRadioInputs.forEach((input)=>{
+      input.checked = input.value == product.deliveryDate;
+
+        input.addEventListener("change",()=>{
+          const updatedCart = cart.map((item)=>{
+            if(item.productId == product.productId) item.deliveryDate = input.value;
+            return item
+          })
+
+          z(product.productId,input.value)
+          updateCart(updatedCart)
+        })
+    })
+  })
+}
+
+changeDeliveryDate()
