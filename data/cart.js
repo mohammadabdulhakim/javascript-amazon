@@ -1,27 +1,57 @@
-export let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const defaultCart = [
+  {
+    productId: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+    quantity: 3,
+    deliveryDetails: {
+      time: "5",
+      price: 499,
+    },
+  },
+  {
+    productId: "54e0eccd-8f36-462b-b68a-8182611d9add",
+    quantity: 1,
+    deliveryDetails: {
+      time: "9",
+      price: 0,
+    },
+  },
+  {
+    productId: "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
+    quantity: 7,
+    deliveryDetails: {
+      time: "1",
+      price: 999,
+    },
+  },
+];
 
-export function addToCart(event){
-    const productId = event.target.dataset.id;
-  
-      const quantity = +document.querySelector(`.product-id-${productId}`).value
-  
-      const item = cart.find( item => item.productId === productId )
-  
-      if(item){
-        item.quantity += quantity
-      }else{
-        cart.push({
-          productId,
-          quantity,
-          deliveryDate: 5,
-        })
-      }
+export let cart = JSON.parse(localStorage.getItem("cart")) || defaultCart;
 
-      updateCart()
+export function addToCart(event) {
+  const productId = event.target.dataset.id;
+
+  const quantity = +document.querySelector(`.product-id-${productId}`).value;
+
+  const item = cart.find((item) => item.productId === productId);
+
+  if (item) {
+    item.quantity += quantity;
+  } else {
+    cart.push({
+      productId,
+      quantity,
+      deliveryDetails: {
+        time: "5",
+        price: 499,
+      },
+    });
   }
 
-export function updateCart(updatedCart){
-  updatedCart? cart = updatedCart : updatedCart = cart ;
-  
+  updateCart();
+}
+
+export function updateCart(updatedCart) {
+  updatedCart ? (cart = updatedCart) : (updatedCart = cart);
+
   localStorage.setItem("cart", JSON.stringify(updatedCart));
 }

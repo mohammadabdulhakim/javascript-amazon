@@ -186,14 +186,14 @@ function changeDeliveryDate(){
   }
   cart.map((product)=>{
     const productRadioInputs = document.querySelectorAll(`#delivery-option-${product.productId}`)
-    z(product.productId,product.deliveryDate)
+    z(product.productId,product.deliveryDetails.time)
     
     productRadioInputs.forEach((input)=>{
-      input.checked = input.value == product.deliveryDate;
+      input.checked = input.value == product.deliveryDetails.time;
 
         input.addEventListener("change",()=>{
           const updatedCart = cart.map((item)=>{
-            if(item.productId == product.productId) item.deliveryDate = input.value;
+            if(item.productId == product.productId) item.deliveryDetails.time = input.value;
             return item
           })
 
