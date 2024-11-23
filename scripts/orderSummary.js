@@ -194,7 +194,12 @@ export const renderOrderSummary = () =>{
     
             input.addEventListener("change",()=>{
               const updatedCart = cart.map((item)=>{
-                if(item.productId == product.productId) item.deliveryDetails.time = input.value;
+                if(item.productId == product.productId) {
+                    item.deliveryDetails.time = input.value;
+                    let price = 0;
+                    input.value == "9"? price = 0: input.value == "5"? price = 499: price = 999;
+                    item.deliveryDetails.price = price;
+                };
                 return item
               })
     
