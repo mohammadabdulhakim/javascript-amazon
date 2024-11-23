@@ -1,4 +1,4 @@
-import { cart, updateCart } from "../data/cart.js";
+import { cart, getCartQuantity, updateCart } from "../data/cart.js";
 import { currencyFormat } from "./utils.js";
 import { products } from "/data/products.js";
 import {renderPaymentSummary} from "./paymentSummary.js";
@@ -12,11 +12,7 @@ export const renderOrderSummary = () =>{
         ".checkout-header-middle-section .return-to-home-link"
       );
     
-      let cartQuantity = 0;
-    
-      cart.map((product) => {
-        cartQuantity += product.quantity;
-      });
+      const cartQuantity = getCartQuantity();
     
       checkoutHeaderLink.innerHTML =
         cartQuantity !== 0
@@ -165,6 +161,7 @@ export const renderOrderSummary = () =>{
       if(e.key === "Enter" && e.target.classList[0] === "update-input"){
         const productId = e.target.classList[1].slice(13)
         handleSaveNewQuantity(productId)
+        renderPaymentSummary();
       }
     })
     

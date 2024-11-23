@@ -50,6 +50,16 @@ export function addToCart(event) {
   updateCart();
 }
 
+export const getCartQuantity = () =>{
+  let cartQuantity = 0;
+    
+      cart.map((product) => {
+        cartQuantity += product.quantity;
+      });
+
+  return cartQuantity;
+};
+
 export function updateCart(updatedCart) {
   updatedCart ? (cart = updatedCart) : (updatedCart = cart);
 
