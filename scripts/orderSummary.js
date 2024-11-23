@@ -1,6 +1,7 @@
 import { cart, updateCart } from "../data/cart.js";
 import { currencyFormat } from "./utils.js";
 import { products } from "/data/products.js";
+import {renderPaymentSummary} from "./paymentSummary.js";
 
 import dayjs from "https://unpkg.com/dayjs@1.11.13/esm/index.js";
 
@@ -144,6 +145,7 @@ export const renderOrderSummary = () =>{
           
           const itemToRemove = document.querySelector(`.cart-product-id-${button.dataset.id}`)
           itemToRemove.remove();
+          renderPaymentSummary();
         })
       })
     }
@@ -205,6 +207,7 @@ export const renderOrderSummary = () =>{
     
               z(product.productId,input.value)
               updateCart(updatedCart)
+              renderPaymentSummary();
             })
         })
       })
