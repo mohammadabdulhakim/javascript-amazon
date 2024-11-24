@@ -1,4 +1,4 @@
-import {currencyFormat} from "../scripts/utils/money.js"
+import {currencyFormat} from "../../../scripts/utils/money.js"
 
 describe("Test: currencyFormat",()=>{
     it("works in normal cases",()=>{

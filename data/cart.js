@@ -25,12 +25,14 @@ const defaultCart = [
   },
 ];
 
-export let cart = JSON.parse(localStorage.getItem("cart")) || defaultCart;
+export let cart;
 
-export function addToCart(event) {
-  const productId = event.target.dataset.id;
+export function generateCart(){
+  cart = JSON.parse(localStorage.getItem("cart")) || defaultCart;
+}
 
-  const quantity = +document.querySelector(`.product-id-${productId}`).value;
+export function addToCart(productId) {
+  const quantity = +document.querySelector(`.product-id-${productId}`)?.value || 1;
 
   const item = cart.find((item) => item.productId === productId);
 

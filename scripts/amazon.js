@@ -64,7 +64,7 @@ productsGrid.innerHTML = productsGridInnerHTML
 
 document.querySelectorAll(".add-to-cart-button").forEach((button)=>{
   button.addEventListener("click",(e)=>{
-    addToCart(e)
+    addToCart(e.target.dataset.id)
     updateCartQuantity()
   })
 })
