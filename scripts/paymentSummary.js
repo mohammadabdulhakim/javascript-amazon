@@ -1,6 +1,6 @@
 import { cart, getCartQuantity } from "../data/cart.js";
 import { getProduct } from "../data/products.js";
-import { currencyFormat } from "./utils.js";
+import { currencyFormat } from "./utils/money.js";
 
 
 export const renderPaymentSummary = () => {

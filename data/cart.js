@@ -67,3 +67,6 @@ export function updateCart(updatedCart) {
 
   localStorage.setItem("cart", JSON.stringify(updatedCart));
 }
+
+
+generateCart();
