@@ -1,4 +1,4 @@
-import { currencyFormat } from "./utils.js";
+import { currencyFormat } from "./utils/money.js";
 import {cart, addToCart} from "/data/cart.js";
 import {products} from "/data/products.js"
 
