@@ -1,6 +1,6 @@
 class Cart {
     cartItems = undefined;
-    storageKey;
+    #storageKey;
     defaultCart = [
         {
           productId: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
@@ -29,12 +29,12 @@ class Cart {
     ];
 
     constructor(storageKey){
-        this.storageKey = storageKey;
-        this.generateCart;
+        this.#storageKey = storageKey;
+        this.#generateCart;
     }
-    generateCart() {
+    #generateCart() {
     this.cartItems =
-        JSON.parse(localStorage.getItem(this.storageKey)) || this.defaultCart;
+        JSON.parse(localStorage.getItem(this.#storageKey)) || this.defaultCart;
     }
     addToCart(productId) {
     const quantity =
@@ -69,7 +69,7 @@ class Cart {
     updateCart(updatedCart) {
         updatedCart ? (this.cartItems = updatedCart) : (updatedCart = this.cartItems);
     
-        localStorage.setItem(this.storageKey, JSON.stringify(updatedCart));
+        localStorage.setItem(this.#storageKey, JSON.stringify(updatedCart));
     }
 }
 
