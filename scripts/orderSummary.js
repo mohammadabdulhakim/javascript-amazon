@@ -42,7 +42,7 @@ export const renderOrderSummary = () =>{
                         ${oneProduct.name}
                       </div>
                       <div class="product-price">
-                        $${currencyFormat(oneProduct.priceCents)}
+                        ${oneProduct.getPrice()}
                       </div>
                       <div class="product-quantity product-quantity-${oneProduct.id}">
                         <span>
