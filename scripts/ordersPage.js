@@ -1,8 +1,8 @@
 import { orders } from "../data/orders.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
+import { formatted } from "./utils/date.js";
 import { currencyFormat } from "./utils/money.js";
 
-console.log(orders);
 
 const renderOrdersPage = () =>{
     document.querySelector(".orders-grid").innerHTML = `
@@ -14,7 +14,7 @@ const renderOrdersPage = () =>{
                 <div class="order-header-left-section">
                   <div class="order-date">
                     <div class="order-header-label">Order Placed:</div>
-                    <div>${order.orderTime.slice(5, 10)}</div>
+                    <div>${formatted(order.orderTime)}</div>
                   </div>
                   <div class="order-total">
                     <div class="order-header-label">Total:</div>
@@ -31,7 +31,7 @@ const renderOrdersPage = () =>{
               <div class="order-details-grid">
                     ${order.products.map((item) => {
                         const product = getProduct(item.productId);
-                        console.log(product)
+                        console.log(item)
                       return `
                       <div class="product-image-container">
                         <img src="${product.image}">
@@ -42,7 +42,7 @@ const renderOrdersPage = () =>{
                             ${product.name}
                         </div>
                         <div class="product-delivery-date">
-                            Arriving on: ${item.estimatedDeliveryTime.slice(5, 10)}
+                            Arriving on: ${formatted(item.estimatedDeliveryTime)}
                         </div>
                         <div class="product-quantity">
                             Quantity: ${item.quantity}
