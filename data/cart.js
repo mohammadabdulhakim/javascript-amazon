@@ -72,7 +72,7 @@ export function updateCart(updatedCart) {
 generateCart();
 
 
-export const fetchCart = (callbackFunction) =>{
+export const loadCart = (callbackFunction) =>{
   const xhr = new XMLHttpRequest()
 
   xhr.addEventListener("load",()=>{

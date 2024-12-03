@@ -1,9 +1,9 @@
 import { currencyFormat } from "./utils/money.js";
 import { cart, addToCart } from "/data/cart.js";
-import { fetchProducts,products } from "/data/products.js";
+import { loadProducts,products } from "/data/products.js";
 
 
-fetchProducts(renderHomeProducts);
+loadProducts(renderHomeProducts);
 function renderHomeProducts() {
   const productsGrid = document.querySelector(".products-grid");
 

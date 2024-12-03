@@ -67,7 +67,25 @@ export const unwantedProducts = [
 
 export let products = [];
 
-export const fetchProducts = (callbackFunction) =>{
+
+export const loadProductsFetch = () =>{
+  const promise = fetch("https://supersimplebackend.dev/products").then((response)=>{
+    return response.json()
+  }).then((data)=>{
+    products = data.reduce((acc,product)=>{
+      if(!unwantedProducts.includes(product.id)){
+        const newProduct = product.type === "clothing"? new Clothing(product): new Product(product);
+        acc.push(newProduct)
+      }
+      return acc;
+    },[])
+  })
+
+  return promise;
+} 
+
+
+export const loadProducts = (callbackFunction) =>{
   const xhr = new XMLHttpRequest()
 
   xhr.addEventListener("load",()=>{
