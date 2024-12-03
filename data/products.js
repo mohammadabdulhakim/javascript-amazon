@@ -80,6 +80,11 @@ export const loadProductsFetch = () =>{
       return acc;
     },[])
   })
+  /*
+  .catch(error=>{
+    console.log("Unexpected Error, try again")
+  })
+  */
 
   return promise;
 } 
@@ -97,7 +102,11 @@ export const loadProducts = (callbackFunction) =>{
       return acc;
     },[])
 
+    
     callbackFunction()
+  })
+  xhr.addEventListener("error",(error)=>{
+    console.log("Unexpected Error")
   })
 
   xhr.open("GET", "https://supersimplebackend.dev/products")
