@@ -70,3 +70,18 @@ export function updateCart(updatedCart) {
 
 
 generateCart();
+
+
+export const fetchCart = (callbackFunction) =>{
+  const xhr = new XMLHttpRequest()
+
+  xhr.addEventListener("load",()=>{
+    // console.log("cart has been loaded")
+
+    callbackFunction()
+  })
+
+  xhr.open("GET", "https://supersimplebackend.dev/cart")
+  xhr.send();
+} 
+
