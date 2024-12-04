@@ -1,14 +1,12 @@
-import { currencyFormat } from "./utils/money.js";
 import { cart, addToCart } from "/data/cart.js";
-import { loadProducts,products } from "/data/products.js";
-
+import { loadProducts, products } from "/data/products.js";
 
 loadProducts(renderHomeProducts);
 function renderHomeProducts() {
   const productsGrid = document.querySelector(".products-grid");
 
   let productsGridInnerHTML = "";
-  products.forEach((product) => {
+  search(products).forEach((product) => {
     productsGridInnerHTML += `
       <div class="product-container">
             <div class="product-image-container">
@@ -85,4 +83,32 @@ function renderHomeProducts() {
 
     cartQuantityDiv.innerHTML = cartQuantity;
   }
+
+  document.querySelector(".search-button").addEventListener("click", ()=>{
+    search(products,true)
+  })
+}
+
+
+function search(products,renderProducts){
+  if(!renderProducts){
+    const searchBar = document.querySelector(".search-bar");
+    let currentProducts = products;
+  
+      const searchValue = searchBar.value;
+      
+      currentProducts = currentProducts.filter(
+        (product) =>
+        {
+          return product.name.toLowerCase().includes(searchValue.toLowerCase()) || searchValue.toLowerCase().includes(product.name.toLowerCase())
+        }
+      );
+      
+      searchBar.addEventListener("keypress",(e)=>{
+        (e.key == "Enter") && renderHomeProducts();
+      })
+      return searchBar.value.trim() != "" ? currentProducts : products;
+    }
+    
+    renderHomeProducts();
 }
